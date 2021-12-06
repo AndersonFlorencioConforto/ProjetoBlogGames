@@ -1,6 +1,5 @@
 package com.gamesblog.gamesblog.controllers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gamesblog.gamesblog.dtos.MuralDTO;
 import com.gamesblog.gamesblog.dtos.MuralDtoUser;
 import com.gamesblog.gamesblog.services.MuralService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/mural")
@@ -34,7 +32,7 @@ public class MuralController {
     }
 
     @PostMapping
-    public ResponseEntity<MuralDTO> save(@Valid @RequestBody MuralDtoUser dto2) throws Exception {
+    public ResponseEntity<MuralDTO> save(@Valid @RequestBody MuralDtoUser dto2) {
         MuralDTO dto = service.insert(dto2);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

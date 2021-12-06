@@ -2,6 +2,8 @@ package com.gamesblog.gamesblog.dtos;
 
 import com.gamesblog.gamesblog.models.Game;
 import com.gamesblog.gamesblog.models.Mural;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ public class MuralDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    @Size(min = 5,max = 60, message = "Deve ter entre 5 e 60 caracteres" )
+    @NotBlank(message = "Campo obrigatório")
     private String name;
     private List<GameDTO> games = new ArrayList<>();
 

@@ -1,7 +1,5 @@
 package com.gamesblog.gamesblog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,17 +13,21 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
+    private String email;
+    private String password;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Mural mural;
 
     public User() {
 
     }
-
-    public User(Long id, String name, Mural mural) {
+    public User(Long id, String name, String email, String password, Mural mural) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.password = password;
         this.mural = mural;
     }
 
@@ -51,6 +53,22 @@ public class User implements Serializable {
 
     public void setMural(Mural mural) {
         this.mural = mural;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
