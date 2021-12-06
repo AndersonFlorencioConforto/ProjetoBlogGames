@@ -1,6 +1,8 @@
 package com.gamesblog.gamesblog.dtos;
 
 import com.gamesblog.gamesblog.models.User;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class UserDTO implements Serializable {
     @Size(min = 2,max = 60, message = "Deve ter entre 2 e 60 caracteres" )
     @NotBlank(message = "Campo obrigatório")
     private String name;
+    @Email(message = "Email inválido")
     private String email;
     private MuralDTO mural;
 

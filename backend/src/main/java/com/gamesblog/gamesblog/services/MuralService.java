@@ -38,15 +38,15 @@ public class MuralService {
     }
 
     @Transactional(readOnly = true)
-    public MuralDTO findByUserId(Long userId)  {
+    public MuralDTO findByUserId(Long userId) {
         try {
             Optional<User> user = userRepository.findById(userId);
-            if(user.isEmpty()) {
+            if (user.isEmpty()) {
                 throw new ResourceNotFoundException("Usuário não encontrado");
             }
             Mural mural = repository.find(user);
-            return new MuralDTO(mural,mural.getGames());
-        } catch (NullPointerException e ){
+            return new MuralDTO(mural, mural.getGames());
+        } catch (NullPointerException e) {
             throw new ResourceNotFoundException("Usuário ainda não tem um mural vinculado");
         }
     }
@@ -54,13 +54,17 @@ public class MuralService {
 
     @Transactional
     public MuralDTO insert(MuralDtoUser dto) {
-        Mural entity = new Mural();
-        User user = userRepository.getOne(dto.getUser().getId());
-        entity.setUser(user);
-        entity.setUser(dto.getUser());
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new MuralDTO(entity,entity.getGames());
+        try {
+            Mural entity = new Mural();
+            User user = userRepository.getOne(dto.getUser().getId());
+            entity.setUser(user);
+            entity.setUser(dto.getUser());
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new MuralDTO(entity,entity.getGames());
+        }catch (DataIntegrityViolationException e){
+            throw new DataBaseException("Já existe um mural com esse id de usuário");
+        }
     }
 
     @Transactional
@@ -69,7 +73,7 @@ public class MuralService {
             Mural entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new MuralDTO(entity);
+            return new MuralDTO(entity, entity.getGames());
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id não encontrado " + id);
         }
