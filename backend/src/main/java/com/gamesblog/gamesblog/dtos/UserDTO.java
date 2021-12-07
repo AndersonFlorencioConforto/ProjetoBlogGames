@@ -34,7 +34,7 @@ public class UserDTO implements Serializable {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.mural = new MuralDTO(user.getMural(),user.getMural().getGames());
+        this.mural = new MuralDTO();
     }
 
 
