@@ -2,6 +2,8 @@ package com.gamesblog.gamesblog.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +19,9 @@ public class Game implements Serializable {
     private Double note;
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @OneToMany(mappedBy = "game")
+    private List<Coments> coments = new ArrayList<>();
 
     public Game() {
 
@@ -69,6 +74,10 @@ public class Game implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Coments> getComents() {
+        return coments;
     }
 
     @Override

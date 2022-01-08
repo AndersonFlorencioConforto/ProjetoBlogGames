@@ -58,7 +58,6 @@ public class MuralService {
             Mural entity = new Mural();
             User user = userRepository.getOne(dto.getUser().getId());
             entity.setUser(user);
-            entity.setUser(dto.getUser());
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new MuralDTO(entity,entity.getGames());

@@ -1,9 +1,11 @@
 package com.gamesblog.gamesblog.dtos;
 
+import com.gamesblog.gamesblog.models.Coments;
 import com.gamesblog.gamesblog.models.Game;
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GameDTO implements Serializable {
@@ -19,6 +21,8 @@ public class GameDTO implements Serializable {
     private Double note;
     @NotBlank(message = "Campo requerido.")
     private String description;
+    private List<ComentsDTO> coments = new ArrayList<>();
+
 
     public GameDTO() {
 
@@ -38,6 +42,11 @@ public class GameDTO implements Serializable {
         this.photo = game.getPhoto();
         this.note = game.getNote();
         this.description = game.getDescription();
+    }
+
+    public GameDTO(Game game, List<Coments> coments) {
+        this(game);
+        coments.forEach(x -> this.coments.add(new ComentsDTO(x)));
     }
 
     public Long getId() {
@@ -78,6 +87,14 @@ public class GameDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ComentsDTO> getComents() {
+        return coments;
+    }
+
+    public void setComents(List<ComentsDTO> coments) {
+        this.coments = coments;
     }
 
     @Override

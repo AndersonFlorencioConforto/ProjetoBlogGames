@@ -1,7 +1,11 @@
 package com.gamesblog.gamesblog.services;
 
+import com.gamesblog.gamesblog.dtos.ComentsDTO;
+import com.gamesblog.gamesblog.dtos.ComentsDTONotGames;
 import com.gamesblog.gamesblog.dtos.GameDTO;
+import com.gamesblog.gamesblog.models.Coments;
 import com.gamesblog.gamesblog.models.Game;
+import com.gamesblog.gamesblog.repositories.ComentsRepository;
 import com.gamesblog.gamesblog.repositories.GameRepository;
 import com.gamesblog.gamesblog.services.exceptions.DataBaseException;
 import com.gamesblog.gamesblog.services.exceptions.ResourceNotFoundException;
@@ -16,39 +20,42 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class GameService {
+public class ComentsService {
 
     @Autowired
-    private GameRepository repository;
+    private ComentsRepository repository;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     @Transactional(readOnly = true)
-    public Page<GameDTO> findAllPage(Pageable pageable) {
-        Page<Game> page = repository.findAll(pageable);
-        return page.map(game -> new GameDTO(game,game.getComents()));
+    public Page<ComentsDTO> findAllPage(Pageable pageable) {
+        Page<Coments> page = repository.findAll(pageable);
+        return page.map(Coments -> new ComentsDTO(Coments));
     }
 
     @Transactional(readOnly = true)
-    public GameDTO findById(Long id) {
-        Optional<Game> obj = repository.findById(id);
-        Game entity = obj.orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado."));
-        return new GameDTO(entity,entity.getComents());
+    public ComentsDTO findById(Long id) {
+        Optional<Coments> obj = repository.findById(id);
+        Coments entity = obj.orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado."));
+        return new ComentsDTO(entity);
     }
 
     @Transactional
-    public GameDTO insert(GameDTO dto) {
-        Game entity = new Game();
+    public ComentsDTO insert(ComentsDTONotGames dto) {
+        Coments entity = new Coments();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new GameDTO(entity);
+        return new ComentsDTO(entity);
     }
 
     @Transactional
-    public GameDTO update(Long id, GameDTO dto) {
+    public ComentsDTO update(Long id, ComentsDTONotGames dto) {
         try {
-            Game entity = repository.getOne(id);
+            Coments entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new GameDTO(entity);
+            return new ComentsDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id não encontrado " + id);
         }
@@ -64,11 +71,10 @@ public class GameService {
         }
     }
 
-    private void copyDtoToEntity(GameDTO dto, Game entity) {
-        entity.setName(dto.getName());
-        entity.setDescription(dto.getDescription());
-        entity.setNote(dto.getNote());
-        entity.setPhoto(dto.getPhoto());
+    private void copyDtoToEntity(ComentsDTONotGames dto, Coments entity) {
+        entity.setText(dto.getText());
+        Game game = gameRepository.getOne(dto.getGame().getId());
+        entity.setGame(game);
     }
 
 
