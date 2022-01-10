@@ -1,9 +1,9 @@
 package com.gamesblog.gamesblog.repositories;
 
-import com.gamesblog.gamesblog.models.Coments;
+import com.gamesblog.gamesblog.models.Coment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ComentsRepository extends JpaRepository<Coments,Long> {
+public interface ComentsRepository extends JpaRepository<Coment,Long> {
 }

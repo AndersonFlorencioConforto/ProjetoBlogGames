@@ -1,6 +1,6 @@
 package com.gamesblog.gamesblog.dtos;
 
-import com.gamesblog.gamesblog.models.Coments;
+import com.gamesblog.gamesblog.models.Coment;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,9 +19,9 @@ public class ComentsDTO implements Serializable {
         this.text = text;
     }
 
-    public ComentsDTO(Coments coments) {
-        this.id = coments.getId();
-        this.text = coments.getText();
+    public ComentsDTO(Coment coment) {
+        this.id = coment.getId();
+        this.text = coment.getText();
     }
 
     public Long getId() {

@@ -21,7 +21,7 @@ public class Game implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "game")
-    private List<Coments> coments = new ArrayList<>();
+    private List<Coment> coments = new ArrayList<>();
 
     public Game() {
 
@@ -76,7 +76,7 @@ public class Game implements Serializable {
         this.description = description;
     }
 
-    public List<Coments> getComents() {
+    public List<Coment> getComents() {
         return coments;
     }
 

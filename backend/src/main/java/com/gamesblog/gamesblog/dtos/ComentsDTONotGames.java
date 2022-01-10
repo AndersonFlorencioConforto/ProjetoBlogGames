@@ -1,7 +1,7 @@
 package com.gamesblog.gamesblog.dtos;
 
 
-import com.gamesblog.gamesblog.models.Coments;
+import com.gamesblog.gamesblog.models.Coment;
 
 public class ComentsDTONotGames extends ComentsDTO {
     private static final long serialVersionUID = 1L;
@@ -13,8 +13,8 @@ public class ComentsDTONotGames extends ComentsDTO {
         super();
     }
 
-    public ComentsDTONotGames(Coments coments) {
-        this.game = (coments.getGame() == null) ? null : new GameDTO(coments.getGame());
+    public ComentsDTONotGames(Coment coment) {
+        this.game = (coment.getGame() == null) ? null : new GameDTO(coment.getGame());
     }
 
 

@@ -2,8 +2,7 @@ package com.gamesblog.gamesblog.services;
 
 import com.gamesblog.gamesblog.dtos.ComentsDTO;
 import com.gamesblog.gamesblog.dtos.ComentsDTONotGames;
-import com.gamesblog.gamesblog.dtos.GameDTO;
-import com.gamesblog.gamesblog.models.Coments;
+import com.gamesblog.gamesblog.models.Coment;
 import com.gamesblog.gamesblog.models.Game;
 import com.gamesblog.gamesblog.repositories.ComentsRepository;
 import com.gamesblog.gamesblog.repositories.GameRepository;
@@ -30,20 +29,20 @@ public class ComentsService {
 
     @Transactional(readOnly = true)
     public Page<ComentsDTO> findAllPage(Pageable pageable) {
-        Page<Coments> page = repository.findAll(pageable);
+        Page<Coment> page = repository.findAll(pageable);
         return page.map(Coments -> new ComentsDTO(Coments));
     }
 
     @Transactional(readOnly = true)
     public ComentsDTO findById(Long id) {
-        Optional<Coments> obj = repository.findById(id);
-        Coments entity = obj.orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado."));
+        Optional<Coment> obj = repository.findById(id);
+        Coment entity = obj.orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado."));
         return new ComentsDTO(entity);
     }
 
     @Transactional
     public ComentsDTO insert(ComentsDTONotGames dto) {
-        Coments entity = new Coments();
+        Coment entity = new Coment();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
         return new ComentsDTO(entity);
@@ -52,7 +51,7 @@ public class ComentsService {
     @Transactional
     public ComentsDTO update(Long id, ComentsDTONotGames dto) {
         try {
-            Coments entity = repository.getOne(id);
+            Coment entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new ComentsDTO(entity);
@@ -71,7 +70,7 @@ public class ComentsService {
         }
     }
 
-    private void copyDtoToEntity(ComentsDTONotGames dto, Coments entity) {
+    private void copyDtoToEntity(ComentsDTONotGames dto, Coment entity) {
         entity.setText(dto.getText());
         Game game = gameRepository.getOne(dto.getGame().getId());
         entity.setGame(game);

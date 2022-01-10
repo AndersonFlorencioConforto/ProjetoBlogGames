@@ -1,6 +1,6 @@
 package com.gamesblog.gamesblog.dtos;
 
-import com.gamesblog.gamesblog.models.Coments;
+import com.gamesblog.gamesblog.models.Coment;
 import com.gamesblog.gamesblog.models.Game;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -44,7 +44,7 @@ public class GameDTO implements Serializable {
         this.description = game.getDescription();
     }
 
-    public GameDTO(Game game, List<Coments> coments) {
+    public GameDTO(Game game, List<Coment> coments) {
         this(game);
         coments.forEach(x -> this.coments.add(new ComentsDTO(x)));
     }

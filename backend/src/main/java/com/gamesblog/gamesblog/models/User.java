@@ -16,7 +16,6 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private String password;
-
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Mural mural;
 

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_coments")
-public class Coments implements Serializable {
+public class Coment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,10 +20,10 @@ public class Coments implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    public Coments() {
+    public Coment() {
     }
 
-    public Coments(Long id, String text, Game game) {
+    public Coment(Long id, String text, Game game) {
         this.id = id;
         this.text = text;
         this.game = game;
@@ -58,8 +58,8 @@ public class Coments implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Coments coments = (Coments) o;
-        return Objects.equals(id, coments.id);
+        Coment coment = (Coment) o;
+        return Objects.equals(id, coment.id);
     }
 
     @Override
