@@ -1,7 +1,11 @@
 package com.gamesblog.gamesblog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +22,9 @@ public class User implements Serializable {
     private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Mural mural;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private List<Coment> coments = new ArrayList<>();
 
     public User() {
 
@@ -68,6 +75,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Coment> getComents() {
+        return coments;
+    }
+
+    public void setComents(List<Coment> coments) {
+        this.coments = coments;
     }
 
     @Override

@@ -4,8 +4,10 @@ import com.gamesblog.gamesblog.dtos.ComentsDTO;
 import com.gamesblog.gamesblog.dtos.ComentsDTONotGames;
 import com.gamesblog.gamesblog.models.Coment;
 import com.gamesblog.gamesblog.models.Game;
-import com.gamesblog.gamesblog.repositories.ComentsRepository;
+import com.gamesblog.gamesblog.models.User;
+import com.gamesblog.gamesblog.repositories.ComentRepository;
 import com.gamesblog.gamesblog.repositories.GameRepository;
+import com.gamesblog.gamesblog.repositories.UserRepository;
 import com.gamesblog.gamesblog.services.exceptions.DataBaseException;
 import com.gamesblog.gamesblog.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,16 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class ComentsService {
+public class ComentService {
 
     @Autowired
-    private ComentsRepository repository;
+    private ComentRepository repository;
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public Page<ComentsDTO> findAllPage(Pageable pageable) {
@@ -36,7 +41,7 @@ public class ComentsService {
     @Transactional(readOnly = true)
     public ComentsDTO findById(Long id) {
         Optional<Coment> obj = repository.findById(id);
-        Coment entity = obj.orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado."));
+        Coment entity = obj.orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado."));
         return new ComentsDTO(entity);
     }
 
@@ -71,7 +76,9 @@ public class ComentsService {
     }
 
     private void copyDtoToEntity(ComentsDTONotGames dto, Coment entity) {
+        User user = userRepository.getOne(dto.getUser().getId());
         entity.setText(dto.getText());
+        entity.setUser(user);
         Game game = gameRepository.getOne(dto.getGame().getId());
         entity.setGame(game);
     }

@@ -10,18 +10,21 @@ public class ComentsDTO implements Serializable {
 
     private Long id;
     private String text;
+    private UserDTO user;
 
     public ComentsDTO() {
     }
 
-    public ComentsDTO(Long id, String text) {
+    public ComentsDTO(Long id, String text,UserDTO user) {
         this.id = id;
         this.text = text;
+        this.user = user;
     }
 
     public ComentsDTO(Coment coment) {
         this.id = coment.getId();
         this.text = coment.getText();
+        this.user = (coment.getUser() == null) ? null : new UserDTO(coment.getUser());
     }
 
     public Long getId() {
@@ -40,6 +43,13 @@ public class ComentsDTO implements Serializable {
         this.text = text;
     }
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {

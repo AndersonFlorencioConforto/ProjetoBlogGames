@@ -1,5 +1,6 @@
 package com.gamesblog.gamesblog.services;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gamesblog.gamesblog.dtos.GameDTO;
 import com.gamesblog.gamesblog.models.Game;
 import com.gamesblog.gamesblog.repositories.GameRepository;

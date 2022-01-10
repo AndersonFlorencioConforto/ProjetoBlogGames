@@ -1,6 +1,8 @@
 package com.gamesblog.gamesblog.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,13 +22,18 @@ public class Coment implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Coment() {
     }
 
-    public Coment(Long id, String text, Game game) {
+    public Coment(Long id, String text, Game game,User user) {
         this.id = id;
         this.text = text;
         this.game = game;
+        this.user = user;
     }
 
 
@@ -52,6 +59,14 @@ public class Coment implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

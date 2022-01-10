@@ -2,7 +2,7 @@ package com.gamesblog.gamesblog.controllers;
 
 import com.gamesblog.gamesblog.dtos.ComentsDTO;
 import com.gamesblog.gamesblog.dtos.ComentsDTONotGames;
-import com.gamesblog.gamesblog.services.ComentsService;
+import com.gamesblog.gamesblog.services.ComentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +15,10 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/coments")
-public class ComentsController {
+public class ComentController {
 
     @Autowired
-    private ComentsService service;
+    private ComentService service;
 
     @GetMapping
     public ResponseEntity<Page<ComentsDTO>> findAll(Pageable pageable) {
