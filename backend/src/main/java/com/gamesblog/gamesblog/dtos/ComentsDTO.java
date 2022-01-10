@@ -1,5 +1,6 @@
 package com.gamesblog.gamesblog.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gamesblog.gamesblog.models.Coment;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ public class ComentsDTO implements Serializable {
 
     private Long id;
     private String text;
+    @JsonIgnoreProperties({"mural","email"})
     private UserDTO user;
 
     public ComentsDTO() {
