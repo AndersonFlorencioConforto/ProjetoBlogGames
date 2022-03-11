@@ -1,8 +1,5 @@
 package com.gamesblog.gamesblog.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,7 +20,7 @@ public class Coment implements Serializable {
     private Game game;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",updatable = false)
     private User user;
 
     public Coment() {

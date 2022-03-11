@@ -8,6 +8,3 @@ INSERT INTO tb_mural (name,user_id) VALUES ('Mural do Airton',2);
 INSERT INTO tb_mural_games (mural_id,games_id) VALUES (1,1);
 INSERT INTO tb_mural_games (mural_id,games_id) VALUES (2,2);
 INSERT INTO tb_coments (text,game_id,user_id) VALUES ('Muito bom esse game',1,1);
-
-
-

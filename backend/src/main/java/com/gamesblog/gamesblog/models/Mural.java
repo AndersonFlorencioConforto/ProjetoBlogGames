@@ -23,7 +23,7 @@ public class Mural implements Serializable {
     private Set<Game> games = new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "user_id",unique = true)
+    @JoinColumn(name = "user_id",unique = true,updatable = false)
     private User user;
 
     public Mural() {

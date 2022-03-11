@@ -14,8 +14,8 @@ public class StandardError implements Serializable {
     
     
     public StandardError() {
-    	
-    }
+		// TODO document why this constructor is empty
+	}
 
 
 	public Instant getTimestamp() {
